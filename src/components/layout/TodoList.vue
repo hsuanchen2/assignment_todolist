@@ -71,13 +71,11 @@ function autoResize() {
 }
 
 function deleteTask() {
-  console.log("clicked");
   show.value = true;
   // store.commit("deleteTask", props.taskId);
 }
 
 function confirmDelete() {
-  console.log("clicked on dialog");
   store.commit("deleteTask", props.taskId);
 }
 
