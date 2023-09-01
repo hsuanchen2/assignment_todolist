@@ -1,20 +1,22 @@
 <template>
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="新增代辦事項"
-      v-model.trim="enteredTask"
-    />
-    <button
-      class="btn btn-primary"
-      type="button"
-      id="button-addon2"
-      @click="addTask"
-    >
-      新增
-    </button>
-  </div>
+  <form @submit.prevent="addTask">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="新增代辦事項"
+        v-model.trim="enteredTask"
+      />
+      <button
+        class="btn btn-primary"
+        type="button"
+        id="button-addon2"
+        @click="addTask"
+      >
+        新增
+      </button>
+    </div>
+  </form>
   <div class="error-msg" v-if="isInvalid">事項不可為空</div>
 </template>
 <script setup>
@@ -37,7 +39,6 @@ function addTask() {
     isInvalid.value = true;
   }
 }
-
 </script>
 <style lang="scss" scoped>
 .input-group {

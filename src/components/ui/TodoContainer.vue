@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="todolist-contanier">
+    <base-spinner v-if="isLoading"></base-spinner>
     <p v-if="!hasTask">目前沒有待辦事項</p>
     <ul>
       <todo-list
@@ -13,12 +14,13 @@
   </div>
 </template>
 <script setup>
+import BaseSpinner from "../ui/BaseSpinner.vue";
 import TodoList from "../layout/TodoList.vue";
 import { ref, onMounted, computed, watch } from "vue";
 import { useStore, mapGetters } from "vuex";
 
 const store = useStore();
-
+const isLoading = ref(false);
 const todos = computed(() => {
   return store.getters["availableTasks"];
 });
@@ -27,7 +29,9 @@ function getTask() {
 }
 
 onMounted(async () => {
+  isLoading.value = true;
   await store.dispatch("fetchTodos");
+  isLoading.value = false;
   getTask();
 });
 const hasTask = computed(() => {
@@ -35,7 +39,7 @@ const hasTask = computed(() => {
 });
 </script>
 <style scoped lang="scss">
-div {
+.todolist-contanier {
   width: 80%;
   margin: 0 auto;
   ul {
